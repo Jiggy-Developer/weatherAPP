@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Checker</title>
+    <link rel="stylesheet" href="bootstrap-5.3.0-alpha1-dist/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap-5.3.0-alpha1-dist/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js">
+    <link rel="icon" href="./Weather App/logo192.png">
+</head>
+<style>
+    body{
+        background-image: url(./Weather\ App/bg3.jpg);
+        background-repeat: none;
+        background-size: cover;
+    }
+    
+</style>
+<body>
+    <div class="container mx mx-auto mt-5">
+   <input type="text" class="form-control w-50" placeholder="type a city name" id="inp">
+
+   <button onclick="getdata()" type="button" class="btn btn-outline-success mt-2">Check Weather</button>
+   
+    <!-- <button onclick="getdata()">get</button> -->
+    <hr> <br>
+    <div id="disp"></div>
+    <div id="dis"></div>
+    <div id="displ"></div>
+    <div style="font-size: 15rem;" id="displa"></div>
+</div>
+
+    <script>
+        const getdata=async()=> {
+            cityname = inp.value
+            inp.value = ""
+            console.log(cityname);
+            var apikey = "57f07ab4d04b2a37decc9cf86d151b00"
+        let url3='https://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&appid=' + apikey
+       
+        let response =await fetch(url3)
+        let convertRes= await response.json()
+        console.log(convertRes)
+        
+        disp.innerHTML =`<h1>${(convertRes.name)}</h1>`
+        dis.innerHTML = `<h2>${(convertRes.sys.country)}</h2>`
+        converted = convertRes.weather
+        for (let index = 0; index < converted.length; index++) {
+            displ.innerHTML = `<h4>${(converted[0].main)} <img src="./Weather App/04d_2x.png" width="35rem" alt=""></h4>
+            `            
+        }
+        displa.innerHTML = `<h1 style="font-size:8rem;color:beige;">${Math.ceil(convertRes.main.temp - 273)}<sup>0</sup>C</h1>` 
+        
+       
+        }
+    </script>
+</body>
+</html>
